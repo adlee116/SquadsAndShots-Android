@@ -1,4 +1,4 @@
-package com.example.squadsandshots_android
+package com.squadsandshots_android
 
 import org.junit.Test
 
