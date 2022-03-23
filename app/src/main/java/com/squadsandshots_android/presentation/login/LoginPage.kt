@@ -36,13 +36,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavController
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.squadsandshots_android.presentation.login.destinations.SignUpPageDestination
 import com.squadsandshots_android.presentation.navigation.Screen
 import com.squadsandshots_android.requestModels.LoginRequest
 
 @Destination(start = true)
 @Composable
-fun LoginPage(viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginPage(navController: DestinationsNavigator, viewModel: LoginViewModel = hiltViewModel()) {
     val loginRequest by rememberSaveable { mutableStateOf(LoginRequest()) }
     Column(modifier = Modifier
         .fillMaxSize(),
@@ -51,7 +53,9 @@ fun LoginPage(viewModel: LoginViewModel = hiltViewModel()) {
         SquadsAndShotsTitle()
         UsernameAndPasswordFields(loginRequest)
         LoginButton(onClick = { viewModel.login(it) }, loginRequest)
-//        SignUpButton(onClick = { navController.navigate(Screen.Create.route) })
+        SignUpButton(onClick = { navController.navigate(
+            SignUpPageDestination()
+        ) })
 //        Row {
 //            LoginButton(onClick = { loginViewModel.login(it) }, loginRequest)
 //            val navController = LocalNavController.current
