@@ -9,11 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class CreateFireBaseUserUseCase @Inject constructor() {
-    @Inject lateinit var dataBaseRepoInterface: DataBaseRepoInterface
+class CreateFireBaseUserUseCase @Inject constructor(
+    private val dataBaseRepoInterface: DataBaseRepoInterface
+) {
     operator fun invoke(
         scope: CoroutineScope,
         params: LoginRequest,
@@ -30,18 +29,18 @@ class CreateFireBaseUserUseCase @Inject constructor() {
         onSuccess: (FirebaseUser) -> Unit,
         onFailure: (Exception) -> Unit
     ){
-        return try {
-            val userResponse = dataBaseRepoInterface.createUser(params)
-            if (userResponse.isSuccessful) {
-                userResponse.result.user?.let { onSuccess(it)
-                } ?: run {
-                    onFailure(Exception(""))
-                }
-            } else {
-                onFailure(Exception(""))
-            }
-        } catch (ex: Exception) {
-            onFailure(Exception(""))
-        }
+//        try {
+////            val userResponse = dataBaseRepoInterface.createUser(params)
+//            if (userResponse.isSuccessful) {
+//                userResponse.result.user?.let { onSuccess(it)
+//                } ?: run {
+//                    onFailure(Exception(""))
+//                }
+//            } else {
+//                onFailure(Exception(""))
+//            }
+//        } catch (ex: Exception) {
+//            onFailure(Exception(""))
+//        }
     }
 }

@@ -2,19 +2,21 @@ package com.squadsandshots_android.di
 
 import com.squadsandshots_android.repositories.DataBaseRepoInterface
 import com.squadsandshots_android.repositories.FirebaseDataRepo
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+object RepositoryModule {
 
-    @Binds
-    abstract fun provideFirebaseDataRepo(
-        firebaseDataRepo: FirebaseDataRepo
-    ): DataBaseRepoInterface
+    @Provides
+    @Singleton
+    fun provideFirebaseDataRepo(): DataBaseRepoInterface {
+        return FirebaseDataRepo()
+    }
 
 
 }

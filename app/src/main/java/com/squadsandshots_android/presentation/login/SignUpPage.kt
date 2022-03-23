@@ -8,8 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.squadsandshots_android.requestModels.LoginRequest
-import kotlin.math.sign
-
 
 @Composable
 fun SignUpPage(signUpViewModel: SignUpViewModel = viewModel()) {
@@ -21,7 +19,7 @@ fun SignUpPage(signUpViewModel: SignUpViewModel = viewModel()) {
         SquadsAndShotsTitle()
         UsernameAndPasswordFields(loginRequest)
         SignUpButton(onClick = {
-            signUpViewModel.createAccount(loginRequest)
+//            signUpViewModel.createAccount(loginRequest)
         })
 
     }

@@ -11,18 +11,20 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val createFireBaseUserUseCase: CreateFireBaseUserUseCase) : ViewModel() {
+class SignUpViewModel @Inject constructor(
+//    private val createFireBaseUserUseCase: CreateFireBaseUserUseCase
+    ) : ViewModel() {
 
-    private val _events: MutableStateFlow<LoginEvent?> = MutableStateFlow(null)
-    val events: StateFlow<LoginEvent?> get() = _events.asStateFlow()
-
-    fun createAccount(loginRequest: LoginRequest) {
-        createFireBaseUserUseCase.invoke(viewModelScope, loginRequest, onSuccess = {}, onFailure = {})
-    }
-
-    data class LoginEvent(val state: LoginViewEvent)
-    sealed class LoginViewEvent {
-        object SignUpFailed : LoginViewEvent()
-        object SignUpSuccess : LoginViewEvent()
-    }
+//    private val _events: MutableStateFlow<LoginEvent?> = MutableStateFlow(null)
+//    val events: StateFlow<LoginEvent?> get() = _events.asStateFlow()
+//
+//    fun createAccount(loginRequest: LoginRequest) {
+//        createFireBaseUserUseCase.invoke(viewModelScope, loginRequest, onSuccess = {}, onFailure = {})
+//    }
+//
+//    data class LoginEvent(val state: LoginViewEvent)
+//    sealed class LoginViewEvent {
+//        object SignUpFailed : LoginViewEvent()
+//        object SignUpSuccess : LoginViewEvent()
+//    }
 }

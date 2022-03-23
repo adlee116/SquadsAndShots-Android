@@ -16,8 +16,8 @@ class LoginViewModel @Inject constructor(
 //    private val getCurrentFireBaseUser: GetCurrentFireBaseUserUseCase
 ) : ViewModel() {
 
-    private val _events: MutableStateFlow<LoginEvent?> = MutableStateFlow(null)
-    val events: StateFlow<LoginEvent?> get() = _events.asStateFlow()
+//    private val _events: MutableStateFlow<LoginEvent?> = MutableStateFlow(null)
+//    val events: StateFlow<LoginEvent?> get() = _events.asStateFlow()
 
 //    fun checkIfUserAlreadyAuthorised() {
 //        getCurrentFireBaseUser.invoke(viewModelScope) { result ->
@@ -28,18 +28,18 @@ class LoginViewModel @Inject constructor(
 //        }
 //    }
 
-    fun login(loginRequest: LoginRequest) {
-        loginUseCase.invoke(viewModelScope, loginRequest, onSuccess = {}, onFailure = {})
-
+    fun login(loginRequest: LoginRequest): Int {
+//        loginUseCase.invoke(viewModelScope, loginRequest, onSuccess = {}, onFailure = {})
+        return 1
     }
 
-    private fun updateUI(loginSuccess: LoginViewEvent) {
-        _events.value = LoginEvent(loginSuccess)
-    }
-
-    data class LoginEvent(val state: LoginViewEvent)
-    sealed class LoginViewEvent {
-        object LoginFailed : LoginViewEvent()
-        object LoginSuccess : LoginViewEvent()
-    }
+//    private fun updateUI(loginSuccess: LoginViewEvent) {
+//        _events.value = LoginEvent(loginSuccess)
+//    }
+//
+//    data class LoginEvent(val state: LoginViewEvent)
+//    sealed class LoginViewEvent {
+//        object LoginFailed : LoginViewEvent()
+//        object LoginSuccess : LoginViewEvent()
+//    }
 }

@@ -10,7 +10,6 @@ import com.squadsandshots_android.requestModels.LoginRequest
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class FirebaseDataRepo @Inject constructor(): DataBaseRepoInterface {
 
     private val databaseReference = Firebase.database

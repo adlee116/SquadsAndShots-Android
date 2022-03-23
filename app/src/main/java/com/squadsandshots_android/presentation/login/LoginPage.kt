@@ -32,14 +32,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.squadsandshots_android.presentation.mainActivity.LocalNavController
+import androidx.navigation.NavHostController
 import com.squadsandshots_android.presentation.navigation.Screen
 import com.squadsandshots_android.requestModels.LoginRequest
-import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
-fun LoginPage(loginViewModel: LoginViewModel = viewModel()) {
+fun LoginPage(loginViewModel: LoginViewModel, navController: NavHostController) {
     val loginRequest by rememberSaveable { mutableStateOf(LoginRequest()) }
     Column(modifier = Modifier
         .fillMaxSize(),
@@ -47,11 +45,13 @@ fun LoginPage(loginViewModel: LoginViewModel = viewModel()) {
     ) {
         SquadsAndShotsTitle()
         UsernameAndPasswordFields(loginRequest)
-        Row {
-            LoginButton(onClick = { loginViewModel.login(it) }, loginRequest)
-            val navController = LocalNavController.current
-            SignUpButton(onClick = { navController.navigate(Screen.Create.route) })
-        }
+        LoginButton(onClick = { loginViewModel.login(it) }, loginRequest)
+        SignUpButton(onClick = { navController.navigate(Screen.Create.route) })
+//        Row {
+//            LoginButton(onClick = { loginViewModel.login(it) }, loginRequest)
+//            val navController = LocalNavController.current
+//            SignUpButton(onClick = { navController.navigate(Screen.Create.route) })
+//        }
 
     }
 }
