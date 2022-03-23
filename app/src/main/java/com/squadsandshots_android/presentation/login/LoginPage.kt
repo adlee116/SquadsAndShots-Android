@@ -32,12 +32,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.squadsandshots_android.presentation.navigation.Screen
 import com.squadsandshots_android.requestModels.LoginRequest
 
 @Composable
-fun LoginPage(loginViewModel: LoginViewModel, navController: NavHostController) {
+fun LoginPage() {
+    val viewModel: LoginViewModel = viewModel()
     val loginRequest by rememberSaveable { mutableStateOf(LoginRequest()) }
     Column(modifier = Modifier
         .fillMaxSize(),
@@ -45,8 +47,8 @@ fun LoginPage(loginViewModel: LoginViewModel, navController: NavHostController) 
     ) {
         SquadsAndShotsTitle()
         UsernameAndPasswordFields(loginRequest)
-        LoginButton(onClick = { loginViewModel.login(it) }, loginRequest)
-        SignUpButton(onClick = { navController.navigate(Screen.Create.route) })
+        LoginButton(onClick = { viewModel.login(it) }, loginRequest)
+//        SignUpButton(onClick = { navController.navigate(Screen.Create.route) })
 //        Row {
 //            LoginButton(onClick = { loginViewModel.login(it) }, loginRequest)
 //            val navController = LocalNavController.current
