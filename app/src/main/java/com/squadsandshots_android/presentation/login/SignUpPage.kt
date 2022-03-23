@@ -7,10 +7,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.squadsandshots_android.requestModels.LoginRequest
 
+@Destination
 @Composable
-fun SignUpPage(signUpViewModel: SignUpViewModel = viewModel()) {
+fun SignUpPage(navigator: DestinationsNavigator) {
     val loginRequest by rememberSaveable { mutableStateOf(LoginRequest()) }
     Column(modifier = Modifier
         .fillMaxSize(),

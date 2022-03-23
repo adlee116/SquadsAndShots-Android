@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 val navController: NavHostController = rememberNavController()
                 NavHost(navController = navController, startDestination = Screen.Login.route) {
                     composable(route = Screen.Login.route) { LoginPage() }
-                    composable(route = Screen.Create.route) { SignUpPage() }
+//                    composable(route = Screen.Create.route) { SignUpPage() }
                 }
             }
         }

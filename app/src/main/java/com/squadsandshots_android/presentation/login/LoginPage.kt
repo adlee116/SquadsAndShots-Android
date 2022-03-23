@@ -32,14 +32,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.squadsandshots_android.presentation.navigation.Screen
 import com.squadsandshots_android.requestModels.LoginRequest
 
+@Destination(start = true)
 @Composable
-fun LoginPage() {
-    val viewModel: LoginViewModel = viewModel()
+fun LoginPage(viewModel: LoginViewModel = hiltViewModel()) {
     val loginRequest by rememberSaveable { mutableStateOf(LoginRequest()) }
     Column(modifier = Modifier
         .fillMaxSize(),
