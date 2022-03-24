@@ -8,7 +8,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.squadsandshots_android.requestModels.LoginRequest
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class FirebaseDataRepo @Inject constructor(): DataBaseRepoInterface {
 
@@ -25,6 +24,14 @@ class FirebaseDataRepo @Inject constructor(): DataBaseRepoInterface {
 
     override fun getCurrentUser(): FirebaseUser? {
         return firebaseAuth.currentUser
+    }
+
+    override fun sendPasswordResetRequest(email: String): Task<Void> {
+        return firebaseAuth.sendPasswordResetEmail(email)
+    }
+
+    override fun  verifyPasswordResetCode(code: String): Task<String> {
+        return firebaseAuth.verifyPasswordResetCode(code)
     }
 
 }

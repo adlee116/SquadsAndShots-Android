@@ -1,37 +1,19 @@
 package com.squadsandshots_android.useCases
 
 import com.google.firebase.auth.FirebaseUser
+import com.squadsandshots_android.core.utils.EmptyParamsUseCase
 import com.squadsandshots_android.repositories.DataBaseRepoInterface
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GetCurrentFireBaseUserUseCase @Inject constructor(
     private val dataBaseRepoInterface: DataBaseRepoInterface
-) {
+): EmptyParamsUseCase<Result<FirebaseUser?, Exception>>() {
 
-    operator fun invoke(
-        scope: CoroutineScope,
-        onSuccess: (FirebaseUser?) -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
-        scope.launch {
-            withContext(Dispatchers.IO) {
-                run(onSuccess, onFailure)
-            }
+    override suspend fun run(): Result<FirebaseUser?, Exception> {
+        return try {
+            Result.Success(dataBaseRepoInterface.getCurrentUser())
+        } catch (ex: Exception) {
+            Result.Failure(ex)
         }
-    }
-
-    private fun run(
-        onSuccess: (FirebaseUser?) -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
-//        return try {
-//            onSuccess(dataBaseRepoInterface.getCurrentUser())
-//        } catch (ex: Exception) {
-//            onFailure(Exception(""))
-//        }
     }
 }

@@ -10,4 +10,6 @@ interface DataBaseRepoInterface {
     fun createUser(createUserRequest: LoginRequest): Task<AuthResult>
     fun login(loginRequest: LoginRequest): Task<AuthResult>
     fun getCurrentUser(): FirebaseUser?
+    fun sendPasswordResetRequest(email: String): Task<Void>
+    fun verifyPasswordResetCode(code: String): Task<String>
 }
