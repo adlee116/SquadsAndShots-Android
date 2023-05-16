@@ -2,13 +2,14 @@ package com.squadsandshots_android.useCases
 
 import com.google.android.gms.tasks.Task
 import com.squadsandshots_android.core.utils.BaseUseCase
-import com.squadsandshots_android.repositories.DataBaseRepoInterface
+import com.squadsandshots_android.repositories.DatabaseAuthRepoInterface
+import javax.inject.Inject
 
-class RequestResetPasswordUseCase(val dataBaseRepoInterface: DataBaseRepoInterface)
-    : BaseUseCase<Task<Void>, String>() {
+class RequestResetPasswordUseCase @Inject constructor(val databaseAuthRepoInterface: DatabaseAuthRepoInterface) :
+    BaseUseCase<Task<Void>, String>() {
     override suspend fun run(params: String): Result<Task<Void>, Exception> {
         return try {
-            Result.Success(dataBaseRepoInterface.sendPasswordResetRequest(params))
+            Result.Success(databaseAuthRepoInterface.sendPasswordResetRequest(params))
         } catch (ex: Exception) {
             Result.Failure(ex)
         }

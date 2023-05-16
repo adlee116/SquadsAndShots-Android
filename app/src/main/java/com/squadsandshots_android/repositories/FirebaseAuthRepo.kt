@@ -9,7 +9,7 @@ import com.google.firebase.ktx.Firebase
 import com.squadsandshots_android.requestModels.LoginRequest
 import javax.inject.Inject
 
-class FirebaseDataRepo @Inject constructor(): DataBaseRepoInterface {
+class FirebaseAuthRepo @Inject constructor(): DatabaseAuthRepoInterface {
 
     private val databaseReference = Firebase.database
     private val firebaseAuth = Firebase.auth

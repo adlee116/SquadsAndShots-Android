@@ -38,7 +38,6 @@ import androidx.lifecycle.lifecycleScope
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.squadsandshots_android.presentation.destinations.HomePageDestination
-import com.squadsandshots_android.presentation.destinations.ResetPassWordPageDestination
 import com.squadsandshots_android.presentation.destinations.SignUpPageDestination
 import com.squadsandshots_android.requestModels.LoginRequest
 import kotlinx.coroutines.flow.collect
@@ -47,13 +46,33 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun LoginPage(navController: DestinationsNavigator, viewModel: LoginViewModel = hiltViewModel()) {
     val loginRequest by rememberSaveable { mutableStateOf(LoginRequest()) }
+    SetupViewModelListener(viewModel = viewModel, navController = navController)
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Spacer(modifier = Modifier.height(10.dp))
+        LoginCenterContent(
+            loginRequest = loginRequest,
+            viewModel = viewModel,
+            navigator = navController
+        )
+//        ResetPasswordButton(modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)) {
+//            navController.navigate(ResetPassWordPageDestination())
+//        }
+    }
+}
+
+@Composable
+fun SetupViewModelListener(viewModel: LoginViewModel, navController: DestinationsNavigator) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
 
     viewModel.checkIfUserAlreadyAuthorised()
     lifecycleOwner.lifecycleScope.launchWhenStarted {
         viewModel.events.collect {
-            when(it) {
+            when (it) {
                 is LoginViewModel.LoginViewEvent.CredentialsInvalid -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
@@ -68,10 +87,18 @@ fun LoginPage(navController: DestinationsNavigator, viewModel: LoginViewModel = 
 
         }
     }
+}
+
+@Composable
+fun LoginCenterContent(
+    loginRequest: LoginRequest,
+    viewModel: LoginViewModel,
+    navigator: DestinationsNavigator
+) {
     Column(
         modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center
+            .wrapContentSize(),
+        verticalArrangement = Arrangement.Center,
     ) {
         SquadsAndShotsTitle()
         UsernameAndPasswordFields(loginRequest)
@@ -82,9 +109,8 @@ fun LoginPage(navController: DestinationsNavigator, viewModel: LoginViewModel = 
             horizontalArrangement = SpaceEvenly
         ) {
             LoginButton(onClick = { viewModel.validateFieldsAndLogin(it) }, loginRequest)
-            SignUpButton(onClick = { navController.navigate(SignUpPageDestination()) })
+            SignUpButton(onClick = { navigator.navigate(SignUpPageDestination()) })
         }
-        ResetPasswordButton { navController.navigate(ResetPassWordPageDestination()) }
 
     }
 }
@@ -113,20 +139,6 @@ fun LoginButton(onClick: (LoginRequest) -> Unit, loginRequest: LoginRequest) {
 
 @Composable
 fun SignUpButton(onClick: () -> Unit) {
-    ClickableText(
-        text = AnnotatedString("Sign up"),
-        onClick = { onClick() },
-        style = TextStyle(
-            color = Blue,
-            fontSize = 22.sp,
-            fontFamily = FontFamily.SansSerif,
-            textAlign = TextAlign.Center
-        )
-    )
-}
-
-@Composable
-fun ResetPasswordButton(onClick: () -> Unit) {
     ClickableText(
         text = AnnotatedString("Sign up"),
         onClick = { onClick() },
@@ -169,6 +181,7 @@ fun TextFieldWithHint(labelText: String, password: Boolean, onValueChanged: (Str
             stringValue = it
             onValueChanged(it)
         },
+        maxLines = 1,
         label = { Text(labelText) },
         visualTransformation = if (password) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(
